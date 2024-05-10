@@ -1,1 +1,10 @@
-<h1>Test<h1>
+<h1><%= @event.title %></h1>
+<p><strong>Description :</strong> <%= @event.description %></p>
+<p><strong>Nombre d'inscrits :</strong> <%= @event.attendees.count %></p>
+<p><strong>Créateur :</strong> <%= @event.user.email %></p>
+<p><strong>Date de début :</strong> <%= @event.start_date %></p>
+<p><strong>Lieu :</strong> <%= @event.location %></p>
+<p><strong>Prix :</strong> <%= @event.price %></p>
+
+<%= button_to "S'inscrire à cet événement", new_attendance_path(@event), method: :get, class: "btn btn-primary" %>
+<%= button_to "Passer commande (NEXT GEN)", checkout_create_path(total: @event.price, event_id: @event.id), class: "btn btn-primary", data: {turbo: false} %>
