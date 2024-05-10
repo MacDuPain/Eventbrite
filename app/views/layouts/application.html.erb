@@ -16,7 +16,7 @@
   </head>
 
   <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Eventbrite-like</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,23 +27,31 @@
         <li class="nav-item">
           <%= link_to "Accueil", root_path, class: "nav-link btn btn-link" %>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Créer un événement</a>
-        </li>
-        <li class="nav-item">
-          <%= link_to "S'inscrire", new_user_registration_path, class: "nav-link btn btn-link"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Se connecter", new_user_session_path, class: "nav-link btn btn-link" %>
-        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Mon profil", user_path(current_user), class: "nav-link btn btn-link" %>
+          </li>
+          <li class="nav-item">
+          <button type="submit" class="nav-link btn btn-link" form="logout-form">Se déconnecter</button>
+          <%= form_tag(destroy_user_session_path, method: :delete, id: "logout-form") do %>
+            <%= submit_tag "Se déconnecter", class: "d-none" %>
+          <% end %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "S'inscrire", new_user_registration_path, class: "nav-link btn btn-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Se connecter", user_session_path, class: "nav-link btn btn-link" %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
 </nav>
+
     <div class="container">
       <%= yield %>
     </div>
   </body>
 </html>
-
-
