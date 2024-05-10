@@ -28,6 +28,7 @@
           <%= link_to "Accueil", root_path, class: "nav-link btn btn-link" %>
         </li>
         <% if user_signed_in? %>
+        <%= link_to "Créer un événement", new_event_path, class: "nav-link btn btn-link" %>
           <li class="nav-item">
             <%= link_to "Mon profil", user_path(current_user), class: "nav-link btn btn-link" %>
           </li>
